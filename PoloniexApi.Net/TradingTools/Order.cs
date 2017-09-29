@@ -19,5 +19,13 @@ namespace Jojatekok.PoloniexAPI.TradingTools
         public double AmountQuote { get; private set; }
         [JsonProperty("total")]
         public double AmountBase { get; private set; }
+
+        public Order(ulong aIdOrder, OrderType aType, double aPricePerCoin, double aAmountQuote, double aAmountBase) {
+          IdOrder = aIdOrder;
+          Type = aType;
+          PricePerCoin = aPricePerCoin;
+          AmountQuote = aAmountQuote;
+          AmountBase = aAmountBase;
+        }
     }
 }

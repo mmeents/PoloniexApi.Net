@@ -2,6 +2,8 @@
 using Jojatekok.PoloniexAPI.MarketTools;
 using Jojatekok.PoloniexAPI.TradingTools;
 using Jojatekok.PoloniexAPI.WalletTools;
+using System;
+using System.Collections.Generic;
 
 namespace Jojatekok.PoloniexAPI
 {
@@ -39,5 +41,42 @@ namespace Jojatekok.PoloniexAPI
         {
 
         }
+    }
+
+    public class MrAverager {
+      private Int32 iHowMany = 0;
+      private List<MarketData> lmd;
+      public MrAverager (int iHowManyToAverage) {
+        if (iHowManyToAverage > 2) {
+          iHowMany = iHowManyToAverage - 1;
+        }
+        lmd = new List<MarketData>();
+        lmd.Clear();
+      }
+      public void Add(MarketData md) {
+        lmd.Insert(0, md);
+        if ((iHowMany != 0) && (lmd.Count > iHowMany)) {
+          lmd.RemoveAt(iHowMany);
+        }
+      }
+      public double AvgChange() {
+        double dAvg = 0.0;
+        double dDif = 0.0;
+        if(lmd.Count>2){
+        MarketData a =lmd[0];
+        Boolean iftt = true;
+        foreach (MarketData md in lmd) {
+          if (iftt) {
+            iftt = false;
+            a = md;
+          } else {
+            dDif = a.PriceLast - md.PriceLast;
+            a = md;
+          }
+          dAvg = dAvg + dDif;
+        }
+        }
+        return dAvg;
+      }
     }
 }

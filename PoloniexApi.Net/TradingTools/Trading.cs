@@ -23,7 +23,8 @@ namespace Jojatekok.PoloniexAPI.TradingTools
             };
 
             var data = PostData<IList<Order>>("returnOpenOrders", postData);
-            return data.Any() ? data.ToList<IOrder>() : new List<IOrder>();
+            return data.Any() ? data.Select(x => (IOrder)x).ToList() : new List<IOrder>();
+            //return data.Any() ? data.ToList<IOrder>() : new List<IOrder>();
         }
 
         private IList<ITrade> GetTrades(CurrencyPair currencyPair, DateTime startTime, DateTime endTime)

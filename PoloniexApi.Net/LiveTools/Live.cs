@@ -39,12 +39,14 @@ namespace Jojatekok.PoloniexAPI.LiveTools
 
         public void Stop()
         {
+          if (WampChannel != null) {
             foreach (var subscription in ActiveSubscriptions.Values) {
-                subscription.Dispose();
+              subscription.Dispose();
             }
             ActiveSubscriptions.Clear();
 
             WampChannel.Close();
+          }
         }
 
         private void OnConnectionBroken(object sender, WampSessionCloseEventArgs e)

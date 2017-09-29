@@ -10,5 +10,9 @@ namespace Jojatekok.PoloniexAPI.TradingTools
             set { Time = Helper.ParseDateTime(value); }
         }
         public DateTime Time { get; private set; }
+
+        public Trade(ulong aIdOrder, OrderType aType, double aPricePerCoin, double aAmountQuote, double aAmountBase, DateTime aTime) : base (aIdOrder, aType, aPricePerCoin, aAmountQuote, aAmountBase) {
+          Time = aTime;
+        }
     }
 }
