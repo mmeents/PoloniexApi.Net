@@ -32,6 +32,7 @@ namespace Jojatekok.PoloniexAPI
 
         internal static string GetResponseString(this HttpWebRequest request)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             using (var response = request.GetResponse()) {
                 using (var stream = response.GetResponseStream()) {
                     if (stream == null) throw new NullReferenceException("The HttpWebRequest's response stream cannot be empty.");
